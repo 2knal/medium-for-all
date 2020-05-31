@@ -1,0 +1,17 @@
+version: '3.2'
+services:
+    scraper:
+        hostname: scraper
+        build: .
+        ports:
+            - "5500:5500"
+        depends_on: 
+            rproxy
+    rproxy:
+        hostname: rproxy
+        image: mattes/rotating-proxy
+        environment:
+            - tors=25
+        ports:
+            - "5566:5566"
+            - "4444:4444"

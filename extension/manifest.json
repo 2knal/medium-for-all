@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+	"name": "Medium-for-all",
+    "short_name": "Medium-for-all",
+    "author": "Kunal Sonawane (2knal)",
+	"version": "0.0.0",
+	"description": "View private medium articles on the fly! 🗒️",
+	"permissions": [
+        "storage",
+        "tabs"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ],
+    "icons": { 
+        "16": "images/icon16.png",
+        "48": "images/icon48.png",
+        "128": "images/icon128.png"
+    },
+    "browser_action": {
+        "default_popup": "popup/popup.html",
+        "default_title": "Just read it! 🗒️️"
+    }
+}
