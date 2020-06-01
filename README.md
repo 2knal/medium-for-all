@@ -20,6 +20,6 @@ Chrome extension to access private articles on medium without having to open the
 
 ## TODO
 
-- [ ] Make it real time by setting up message passing between `content script` and `popup`. 
+- [x] Make it real time by setting up message passing between `content script` and `popup`. 
 > Currently requires a manual page refresh after enabling the extension.
 - [ ] Cache recent requests to scraper using `chrome.storage.sync`.

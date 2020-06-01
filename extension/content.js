@@ -1,13 +1,18 @@
-console.log('content go');
+// console.log('content go');
 
-chrome.storage.sync.get(['medium-for-all'], (res) => {
-    console.log('Value:', res['medium-for-all']);
-    const value = res['medium-for-all'];
-    if (value === 'enabled') URLHandler()
-});
+function main() {
+    chrome.storage.sync.get(['medium-for-all'], (res) => {
+        // console.log('Value:', res['medium-for-all']);
+        const value = res['medium-for-all'];
+        if (value === 'enabled') URLHandler()
+    });
+}
+
+// Run when the page refreshes
+window.onload = main();
 
 async function requestHandler(url) {
-    console.log('requesting scraper', url);
+    // console.log('requesting scraper', url);
     const data = await fetch(`https://medium-for-all.herokuapp.com/fetch?url=${url}`);
     const json = await data.json();
     return json;
@@ -46,7 +51,7 @@ async function URLHandler() {
             if (data.success && !data.data.body.includes('None')) {
                 // Check if its a private article or not
                 if (isPrivate()) {
-                    console.log('We are in boys!');
+                    // console.log('We are in boys!');
                     const { head, body } = data.data;
                     document.querySelector('html').innerHTML = `
                         ${head}
@@ -59,3 +64,11 @@ async function URLHandler() {
         console.error('Error:', err);
     }
 }
+
+// Listen to refresh messages
+chrome.runtime.onMessage.addListener(
+    (request, sender, sendResponse) => {
+        // console.log('Message received, go go go!');
+        if(request.message === 'refresh') main();
+    }
+);
